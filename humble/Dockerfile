@@ -19,6 +19,7 @@ RUN useradd -m $USERNAME && \
         usermod  --uid $UID $USERNAME && \
         groupmod --gid $GID $USERNAME
 RUN gpasswd -a $USERNAME video
+RUN gpasswd -a $USERNAME dialout
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
@@ -132,6 +133,12 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ros-humble-desktop \
         ros-dev-tools \
+        swig \
+        ros-humble-cartographer* \
+        ros-humble-nav* \
+        ros-humble-joint-state-publisher* \
+        ros-humble-imu-tools \
+        ros-humble-robot-state-publisher* \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
